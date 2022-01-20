@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:5.7.25
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+    ports:
+      - "4529:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql:cached
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:cached
+      - ./db/conf.d:/etc/mysql/conf.d:cached
+
+volumes:
+    mysql-data:
+        external: false
